@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Colour Extractor</title>
+    <script src="https://kit.fontawesome.com/e9094e8485.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body>
+<div class="header row">
+<h1>Image Color Extract Tool</h1>
+</div>
+
+<div class="row">
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+
+    </div>
+    <div class="col-4">
+
+    </div>
+</div>
+
+<!-- image row -->
+<div class="row">
+    <div class="col-3">
+
+    </div>
+    <div class="col-8">
+        <div class="container">
+        <h2>Demo</h2>
+            <div class="block wrapper">
+                {% if uploaded_image %}
+                <div class="xi">
+                    <img src="{{ url_for('display_image', filename=uploaded_image) }}" alt="" />
+                </div>
+                {% else %}
+                <div class="xi">
+                    <img src="https://editorial.designtaxi.com/editorial-images/news-paris25022021/1.PNG" alt="demo.png">
+                </div>
+                {% endif %}
+                <div class="xi">
+                    <table class="table">
+                        <thead>
+                             <tr><th>Color</th> <th>Color Code</th> <th>Copy</th></tr>
+                         </thead>
+                        <tbody>
+                        {% if not list %}
+                            {% for item in home_list %}
+                                <tr>
+                                    <td style="background-color:#{{item}}"></td>
+                                    <td><div class="copyme">#{{item}}</div></td>
+                                    <td><button class="btn copy"  onClick = "clip_div('copyme{{code}}')">Copy</button></td>
+
+                                </tr>
+                            {% endfor %}
+                        {% else %}
+                            {% for code in list %}
+                                <tr>
+                                    <td style="background-color:#{{code}}"></td>
+                                    <td><div class="copyme">#{{code}}</div></td>
+                                    <td><button class="btn copy"  onClick = "clip_div('copyme{{code}}')">Copy</button></td>
+
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="xi">
+                    <form action = "/" method = "POST" enctype = "multipart/form-data">
+                        <div class="form-group">
+                            <input type = "file" name = "file" required accept="image/*" /><br>
+                            <label>Number of Colors</label><br>
+                            <input type="text" name="number" required value="10" ><br><br>
+                            <input type = "submit" value="Run"/>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="col-1">
+
+    </div>
+
+</div>
+{% include "footer.html" %}
