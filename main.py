@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 import numpy as np
 from PIL import Image
+from collections import Counter
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
@@ -16,10 +17,12 @@ def new_get_colors(pic, num):
     img_array = np.array(img)
     for color in img_array:
         rgb = tuple(color[1])
-        hexacode = '%02x%02x%02x' % rgb
+        hexacode = '{:02x}{:02x}{:02x}'.format(*rgb)
         if hexacode not in hexalist:
             hexalist.append(hexacode)
     length = len(hexalist)
+    if num <= 0 or num > length:
+        return hexalist
     step = int(length / num)
     return hexalist[:length:step]
 
@@ -49,5 +52,3 @@ def display_image(filename):
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
