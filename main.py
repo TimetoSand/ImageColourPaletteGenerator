@@ -25,8 +25,6 @@ def get_most_used_colors(pic, num):
     return hex_code_list
 
 
-
-
 def new_get_colors(pic, num):
     """
     :param pic: path of picture
@@ -75,18 +73,4 @@ def display_image(filename):
 if __name__ == "__main__":
     app.run(debug=True)
 
-# If you ever want to get most used colors
-'''
-from colorthief import ColorThief
 
-color_thief = ColorThief('static/images/gg_color_picker.png')
-# get the dominant color
-dominant_color = color_thief.get_color(quality=1)
-palette = color_thief.get_palette(color_count=6)
-print(dominant_color)
-print(palette)
-
-rgb = (60, 59, 59)
-hex_code = '#{:02x}{:02x}{:02x}'.format(*rgb)
-print(hex_code)
-'''
